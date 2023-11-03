@@ -1,10 +1,11 @@
-package br.com.msf.appcontatos.apicontatos.entity;
+package br.com.msf.appcontatos.apicontatos.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Entity
 public class Pessoa {
 
@@ -25,7 +26,8 @@ public class Pessoa {
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Contato> contatos = new ArrayList<>();
 
-    public Pessoa() {}
+    public Pessoa() {
+    }
 
     public Pessoa(Long id, String nome, String endereco, String cep, String cidade, String uf) {
         this.id = id;
@@ -34,7 +36,7 @@ public class Pessoa {
         this.cep = cep;
         this.cidade = cidade;
         this.uf = uf;
-        this.contatos  = new ArrayList<>();
+        this.contatos = new ArrayList<>();
     }
 
     public Long getId() {

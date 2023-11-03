@@ -1,4 +1,4 @@
-package br.com.msf.appcontatos.apicontatos.entity;
+package br.com.msf.appcontatos.apicontatos.model.entity;
 
 import br.com.msf.appcontatos.apicontatos.model.enums.Tipo;
 import jakarta.persistence.*;
@@ -20,7 +20,9 @@ public class Contato {
     @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
 
-    public Contato() {}
+    public Contato() {
+    }
+
     public Contato(Long id, Tipo tipo, String numero, Pessoa pessoa, String nome) {
         this.id = id;
         this.tipo = tipo;
