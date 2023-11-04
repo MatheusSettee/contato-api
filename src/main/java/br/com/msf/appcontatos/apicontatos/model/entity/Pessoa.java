@@ -39,6 +39,14 @@ public class Pessoa {
         this.contatos = new ArrayList<>();
     }
 
+    public Pessoa(String nome, String endereco, String cep, String cidade, String uf) {
+        this.nome = nome;
+        this.endereco = endereco;
+        this.cep = cep;
+        this.cidade = cidade;
+        this.uf = uf;
+        this.contatos = new ArrayList<>();
+    }
     public Long getId() {
         return id;
     }

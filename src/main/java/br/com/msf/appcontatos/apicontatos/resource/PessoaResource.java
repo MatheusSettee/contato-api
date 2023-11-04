@@ -1,6 +1,8 @@
 package br.com.msf.appcontatos.apicontatos.resource;
 
 
+import br.com.msf.appcontatos.apicontatos.model.dto.ContatoDto;
+import br.com.msf.appcontatos.apicontatos.model.dto.PessoaDto;
 import br.com.msf.appcontatos.apicontatos.model.entity.Contato;
 import br.com.msf.appcontatos.apicontatos.model.entity.Pessoa;
 import br.com.msf.appcontatos.apicontatos.service.ContatoService;
@@ -48,7 +50,7 @@ public class PessoaResource {
 
     @Operation(summary = "Adicionar uma nova pessoa")
     @PostMapping
-    public ResponseEntity<?> salvar(@RequestBody Pessoa pessoa) {
+    public ResponseEntity<?> salvar(@RequestBody PessoaDto pessoa) {
         if (pessoa == null || StringUtils.isBlank(pessoa.getNome()) || StringUtils.isBlank(pessoa.getEndereco()) || StringUtils.isBlank(pessoa.getCep()) || StringUtils.isBlank(pessoa.getCidade()) || StringUtils.isBlank(pessoa.getUf())) {
             return ResponseEntity.badRequest().body("Dados da pessoa inválidos");
         }
@@ -73,17 +75,17 @@ public class PessoaResource {
 
     @Operation(summary = "Adicionar um novo contato para uma pessoa existente")
     @PostMapping("/{id}/contatos")
-    public ResponseEntity<?> adicionarContato(@PathVariable Long id, @RequestBody Contato contato) {
-        if (contato == null || StringUtils.isBlank(contato.getNome()) || StringUtils.isBlank(contato.getNumero()) || contato.getTipo() == null) {
+    public ResponseEntity<?> adicionarContato(@PathVariable Long id, @RequestBody ContatoDto contatoDto) {
+        Contato novoContato = new Contato(contatoDto.getTipo(), contatoDto.getNumero(), null, contatoDto.getNome());
+        if (novoContato == null || StringUtils.isBlank(novoContato.getNome()) || StringUtils.isBlank(novoContato.getNumero()) || novoContato.getTipo() == null) {
             return ResponseEntity.badRequest().body("Dados de contato inválidos");
         }
         Optional<Pessoa> pessoaOptional = pessoaService.getById(id);
         if (pessoaOptional.isPresent()) {
             Pessoa pessoa = pessoaOptional.get();
-            contato.setPessoa(pessoa);
+            novoContato.setPessoa(pessoa);
             try {
-                Contato novoContato = contatoService.criarContato(contato);
-                return ResponseEntity.ok(novoContato);
+                return ResponseEntity.ok(contatoService.criarContato(novoContato));
             } catch (IllegalArgumentException e) {
                 return ResponseEntity.badRequest().body(e.getMessage());
             }
@@ -94,7 +96,7 @@ public class PessoaResource {
 
     @Operation(summary = "Atualizar uma pessoa existente pelo id")
     @PutMapping("/{id}")
-    public ResponseEntity<Pessoa> atualizar(@PathVariable Long id, @RequestBody Pessoa pessoa) {
+    public ResponseEntity<Pessoa> atualizar(@PathVariable Long id, @RequestBody PessoaDto pessoa) {
         Pessoa novoPessoa = pessoaService.update(pessoa, id);
         if (novoPessoa == null)
             return ResponseEntity.notFound().build();

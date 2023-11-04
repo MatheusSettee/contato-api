@@ -1,6 +1,7 @@
 package br.com.msf.appcontatos.apicontatos.service;
 
 import br.com.msf.appcontatos.apicontatos.model.dto.MalaDiretaDto;
+import br.com.msf.appcontatos.apicontatos.model.dto.PessoaDto;
 import br.com.msf.appcontatos.apicontatos.model.entity.Contato;
 import br.com.msf.appcontatos.apicontatos.model.entity.Pessoa;
 import br.com.msf.appcontatos.apicontatos.repository.ContatoRepository;
@@ -26,8 +27,9 @@ public class PessoaService implements PessoaServiceInterface {
     }
 
     @Override
-    public Pessoa criarPessoa(Pessoa pessoa) {
-        return pessoaRepository.save(pessoa);
+    public Pessoa criarPessoa(PessoaDto pessoa) {
+        Pessoa novaPessoa = new Pessoa(pessoa.getNome(), pessoa.getEndereco(), pessoa.getCep(), pessoa.getCidade(), pessoa.getUf());
+        return pessoaRepository.save(novaPessoa);
     }
 
     @Override
@@ -46,7 +48,7 @@ public class PessoaService implements PessoaServiceInterface {
     }
 
     @Override
-    public Pessoa update(Pessoa pessoa, Long id) {
+    public Pessoa update(PessoaDto pessoa, Long id) {
 
         Optional<Pessoa> upPessoa = pessoaRepository.findById(id);
 
@@ -69,7 +71,7 @@ public class PessoaService implements PessoaServiceInterface {
             }
             return pessoaRepository.save(newPessoa);
         }
-        return pessoa;
+        return null;
     }
 
     @Override

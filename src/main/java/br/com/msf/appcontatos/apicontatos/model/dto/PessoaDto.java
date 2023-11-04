@@ -4,30 +4,18 @@ import java.util.List;
 
 public class PessoaDto {
 
-    private Long id;
     private String nome;
     private String endereco;
     private String cep;
     private String cidade;
     private String uf;
-    private List<ContatoDto> contatos;
 
-    public PessoaDto(Long id, String nome, String endereco, String cep, String cidade, String uf, List<ContatoDto> contatos) {
-        this.id = id;
+    public PessoaDto(String nome, String endereco, String cep, String cidade, String uf) {
         this.nome = nome;
         this.endereco = endereco;
         this.cep = cep;
         this.cidade = cidade;
         this.uf = uf;
-        this.contatos = contatos;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -70,11 +58,4 @@ public class PessoaDto {
         this.uf = uf;
     }
 
-    public List<ContatoDto> getContatos() {
-        return contatos;
-    }
-
-    public void setContatos(List<ContatoDto> contatos) {
-        this.contatos = contatos;
-    }
 }
