@@ -1,5 +1,6 @@
 package br.com.msf.appcontatos.apicontatos.service.interfaces;
 
+import br.com.msf.appcontatos.apicontatos.model.dto.ContatoDto;
 import br.com.msf.appcontatos.apicontatos.model.entity.Contato;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface ContatoServiceInterface {
 
     List<Contato> getAll();
 
-    Contato update(Contato contato);
+    Contato update(Long id, ContatoDto contato);
 
     void delete(Long id);
 }

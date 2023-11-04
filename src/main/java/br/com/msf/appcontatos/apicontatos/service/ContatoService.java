@@ -1,5 +1,6 @@
 package br.com.msf.appcontatos.apicontatos.service;
 
+import br.com.msf.appcontatos.apicontatos.model.dto.ContatoDto;
 import br.com.msf.appcontatos.apicontatos.model.entity.Contato;
 import br.com.msf.appcontatos.apicontatos.repository.ContatoRepository;
 import br.com.msf.appcontatos.apicontatos.service.interfaces.ContatoServiceInterface;
@@ -35,9 +36,9 @@ public class ContatoService implements ContatoServiceInterface {
     }
 
     @Override
-    public Contato update(Contato contato) {
+    public Contato update(Long id, ContatoDto contato) {
 
-        Optional<Contato> upContato = contatoRepository.findById(contato.getId());
+        Optional<Contato> upContato = contatoRepository.findById(id);
 
         if (upContato.isPresent()) {
             Contato newContato = upContato.get();
@@ -50,12 +51,9 @@ public class ContatoService implements ContatoServiceInterface {
             if (contato.getTipo() != null) {
                 newContato.setTipo(contato.getTipo());
             }
-            if (contato.getPessoa() != null && contato.getPessoa().getId() != null) {
-                newContato.setPessoa(contato.getPessoa());
-            }
             return contatoRepository.save(newContato);
         }
-        return contato;
+        return null;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package br.com.msf.appcontatos.apicontatos.resource;
 
+import br.com.msf.appcontatos.apicontatos.model.dto.ContatoDto;
 import br.com.msf.appcontatos.apicontatos.model.entity.Contato;
 import br.com.msf.appcontatos.apicontatos.service.ContatoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,8 +43,8 @@ public class ContatoResource {
 
     @Operation(summary = "Atualizar um contato existente pelo id")
     @PutMapping("/{id}")
-    public ResponseEntity<Contato> atualizar(@RequestBody Contato contato) {
-        Contato novoContato = contatoService.update(contato);
+    public ResponseEntity<Contato> atualizar(@PathVariable Long id, @RequestBody ContatoDto contato) {
+        Contato novoContato = contatoService.update(id,contato);
         if (novoContato == null)
             return ResponseEntity.notFound().build();
         return ResponseEntity.ok(novoContato);

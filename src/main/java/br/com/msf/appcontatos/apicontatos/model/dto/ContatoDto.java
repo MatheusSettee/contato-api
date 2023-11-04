@@ -3,25 +3,14 @@ package br.com.msf.appcontatos.apicontatos.model.dto;
 import br.com.msf.appcontatos.apicontatos.model.enums.Tipo;
 
 public class ContatoDto {
-
-    private Long id;
     private Tipo tipo;
     private String nome;
     private String numero;
 
-    public ContatoDto(Long id, Tipo tipo, String nome, String numero) {
-        this.id = id;
+    public ContatoDto(Tipo tipo, String nome, String numero) {
         this.tipo = tipo;
         this.nome = nome;
         this.numero = numero;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Tipo getTipo() {

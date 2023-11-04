@@ -9,10 +9,8 @@ public class Contato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Enumerated(EnumType.ORDINAL)
     private Tipo tipo;
-
     private String nome;
     private String numero;
 
@@ -29,7 +27,12 @@ public class Contato {
         this.numero = numero;
         this.pessoa = pessoa;
         this.nome = nome;
-
+    }
+    public Contato(Tipo tipo, String numero, Pessoa pessoa, String nome) {
+        this.tipo = tipo;
+        this.numero = numero;
+        this.pessoa = pessoa;
+        this.nome = nome;
     }
 
     public Long getId() {
